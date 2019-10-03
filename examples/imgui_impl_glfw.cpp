@@ -54,6 +54,7 @@
 enum GlfwClientApi
 {
     GlfwClientApi_Unknown,
+    GlfwClientApi_NoApi,
     GlfwClientApi_OpenGL,
     GlfwClientApi_Vulkan
 };
@@ -191,6 +192,12 @@ static bool ImGui_ImplGlfw_Init(GLFWwindow* window, bool install_callbacks, Glfw
 
     g_ClientApi = client_api;
     return true;
+}
+
+bool ImGui_ImplGlfw_Init(GLFWwindow* window, bool install_callbacks)
+{
+    //thomasc: why do we care about GL vs Vulkan? I'm using glfw with d3d12! g_ClientAPI doesn't appear to be even used.
+    return ImGui_ImplGlfw_Init(window, install_callbacks, GlfwClientApi_Unknown);
 }
 
 bool ImGui_ImplGlfw_InitForOpenGL(GLFWwindow* window, bool install_callbacks)
